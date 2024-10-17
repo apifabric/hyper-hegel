@@ -1,0 +1,33 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table Category {
+    id INTEGER [primary key]
+    name VARCHAR 
+    }
+
+Table Philosopher {
+    id INTEGER [primary key]
+    name VARCHAR 
+    birth_date DATETIME 
+    nationality VARCHAR 
+    }
+
+Table Quote {
+    id INTEGER [primary key]
+    text TEXT 
+    philosopher_id INTEGER 
+    }
+
+Table QuoteCategory {
+    id INTEGER [primary key]
+    quote_id INTEGER 
+    category_id INTEGER 
+    }
+
+
+
+// Relationships
+    Ref: Quote.(philosopher_id) < Philosopher.(id)
+    Ref: QuoteCategory.(category_id) < Category.(id)
+    Ref: QuoteCategory.(quote_id) < Quote.(id)

@@ -1,0 +1,129 @@
+about:
+  date: October 17, 2024 16:18:02
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 3
+  number_tables: 4
+info_toggle_checked: true
+resources:
+  Category:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: id
+    description: Table to store categories for quotes.
+    info_list: Table to store categories for quotes.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - category_id
+      name: QuoteCategoryList
+      resource: QuoteCategory
+    type: Category
+    user_key: name
+  Philosopher:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: birth_date
+    - name: nationality
+    - name: id
+    description: Table to store philosophers.
+    info_list: Table to store philosophers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - philosopher_id
+      name: QuoteList
+      resource: Quote
+    type: Philosopher
+    user_key: name
+  Quote:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: philosopher_id
+      required: true
+    - name: text
+      required: true
+    description: Table to store quotes attributed to philosophers.
+    info_list: Table to store quotes attributed to philosophers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - quote_id
+      name: QuoteCategoryList
+      resource: QuoteCategory
+    - direction: toone
+      fks:
+      - philosopher_id
+      name: philosopher
+      resource: Philosopher
+    type: Quote
+    user_key: id
+  QuoteCategory:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: category_id
+      required: true
+    - name: quote_id
+      required: true
+    description: Junction table to map quotes to categories (many-to-many relationship).
+    info_list: Junction table to map quotes to categories (many-to-many relationship).
+    tab_groups:
+    - direction: toone
+      fks:
+      - category_id
+      name: category
+      resource: Category
+    - direction: toone
+      fks:
+      - quote_id
+      name: quote
+      resource: Quote
+    type: QuoteCategory
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
